@@ -1,0 +1,3 @@
+C:/Users/Евгений/CLionProjects/Launcher/cmake-build-debug/CMakeFiles/Launcher.dir
+C:/Users/Евгений/CLionProjects/Launcher/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Евгений/CLionProjects/Launcher/cmake-build-debug/CMakeFiles/rebuild_cache.dir
