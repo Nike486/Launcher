@@ -1,23 +1,15 @@
 #include <iostream>
 #include <vector>
 #include "Game.h"
-
+#include <Config.h>
 
 
 int main() {
 
-    Game game("GTA");
-    std::vector <Game> gameList;
+    ConfigProgram configProgram;
+    ConfigGames configGames;
 
-    gameList.push_back(game);
-    game.classClear();
-
-    auto gamePointer = &gameList[0];
-    gamePointer->gameInfo();
-
-    gamePointer->setName("GTA2");
-
-    gamePointer->gameInfo();
+    configProgram.createConfigFile();
 
 
     return 0;

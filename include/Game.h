@@ -1,31 +1,66 @@
 #pragma once
 
+#include "nlohmann/json.hpp"
+#include "map"
+#include <fstream>
+#include <utility>
+#include <vector>
 #include <iostream>
 
-class Game
+
+
+class ConfigGames
 {
 private:
-    std::string name;
+
+    std::vector <std::string> listGames;    // Список всех игр
+    std::vector <std::string> listGameJson; // Список JSON файлов с играми
+
+
+    std::string nameGame;                   // Название игры
+    std::string description;                // Описание
+    int estimation;                         // Оценка
+    std::vector <std::string> genre;        // Жанр (может быть несколько)
+    std::vector <std::string> developer;    // Разработчик (может быть несколько)
+    std::vector <std::string> publisher;    // Издатель (может быть несколько)
+    int price;                              // Цена
+    std::string information;                // Об игре
+
 
 public:
-    Game()
+
+    ConfigGames()
     {
-        name = "";
+        nameGame = "";
+        description = "";
+        estimation = 0;
+        genre = {};
+        developer = {};
+        publisher = {};
+        price = 0;
+        information = "";
     }
 
-    Game(std::string _name) : name(std::move(_name)) {};
+    ConfigGames(std::string nameGame, std::string description, std::vector <std::string> genre, std::vector <std::string> developer, std::vector <std::string> publisher, int price,  std::string information)
+    {
+        this->nameGame = std::move(nameGame);
+        this->description = std::move(description);
+        this->genre = std::move(genre);
+        this->developer = std::move(developer);
+        this->publisher = std::move(publisher);
+        this->price = price;
+        this->information = std::move(information);
+    }
 
+    /// Создаём файл либо заполненый либо пустой (зависит от конструктора класса)
+    void createFile ();
 
-    /// Возвращяет имя игры
-    std::string getName();
+    /// Функция возвращает Цену игры по названию
+    int getPrice(std::string nameGame);
 
-    /// Изменяем или добавляем имя игры
-    void setName(std::string setName);
+    /// Функция возвращает список игр
+    std::vector <std::string> getlistGames();
 
-    /// Чистим класс для записи новой игры в вектор (используем обязательно после записи новой игры)
-    void classClear();
-
-    /// Получаем информацию игры
-    void gameInfo ();
-
+    /// Функция возвращает список JSON со всеми играми
+    std::vector<std::string> getListGameJson();
 };

@@ -1,23 +1,76 @@
 #include "Game.h"
 
-
-std::string Game::getName()
+void ConfigGames::createFile()
 {
-    return name;
+    int a = getListGameJson().size();
+
+    std::ofstream fileJsonCreate("Game" + std::to_string (a) + ".json");
+    nlohmann::json fileJson;
+
+    fileJson["Name"] = nameGame;
+    fileJson["Description"] = description;
+    fileJson["Estimation"] = estimation;
+    fileJson["Genre"] = genre;
+    fileJson["Developer"] = developer;
+    fileJson["Publisher"] = publisher;
+    fileJson["Price"] = price;
+    fileJson["Information"] = information;
+
+    fileJsonCreate << fileJson.dump(2);
 }
 
-void Game::setName(std::string setName)
+int ConfigGames::getPrice(std::string nameGame)
 {
-    name = std::move(setName);
+    getlistGames();
+    for (int i = 0; i < listGames.size(); i++)
+    {
+        if (listGames[i] == nameGame)
+        {
+            std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
+            if (fileJsonOpen.is_open())
+            {
+                nlohmann::json openJson;
+                fileJsonOpen >> openJson;
+                fileJsonOpen.close();
+                return openJson["Price"];
+            }
+        }
+    }
+    return 0;
 }
 
 
-void Game::classClear()
+std::vector<std::string> ConfigGames::getlistGames()
 {
-    name = "";
+    listGames.clear();
+    getListGameJson();
+    for(auto&&LGJ : listGameJson)
+    {
+        std::ifstream fileJsonOpen(LGJ);
+        if (fileJsonOpen.is_open())
+        {
+            nlohmann::json openJson;
+            fileJsonOpen >> openJson;
+            listGames.push_back(openJson["Name"]);
+            fileJsonOpen.close();
+        }
+    }
+    return listGames;
 }
 
-void Game::gameInfo ()
+std::vector<std::string> ConfigGames::getListGameJson()
 {
-    std::cout << "Name: " << getName() << std::endl;
+    listGameJson.clear();
+    int i = 0;
+    while(true)
+    {
+        std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
+        if (fileJsonOpen.is_open())
+        {
+            listGameJson.push_back("Game" + std::to_string (i) + ".json");
+            i++;
+        }
+        else break;
+    }
+    return listGameJson;
 }
