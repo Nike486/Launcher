@@ -41,10 +41,11 @@ public:
         information = "";
     }
 
-    ConfigGames(std::string nameGame, std::string description, std::vector <std::string> genre, std::vector <std::string> developer, std::vector <std::string> publisher, int price,  std::string information)
+    ConfigGames(std::string nameGame, std::string description, int estimation, std::vector <std::string> genre, std::vector <std::string> developer, std::vector <std::string> publisher, int price,  std::string information)
     {
         this->nameGame = std::move(nameGame);
         this->description = std::move(description);
+        this->estimation = estimation;
         this->genre = std::move(genre);
         this->developer = std::move(developer);
         this->publisher = std::move(publisher);
