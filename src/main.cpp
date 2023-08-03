@@ -37,11 +37,22 @@ int main() {
 
 
 
-    ConfigProgram configProgram;
-    ConfigGames configGames(nameGame, description, 0, genre, developer, publisher, price, information);
 
-    configGames.createFile();
-    configProgram.createConfigFile();
+    ConfigGames configGames;
+
+//    configGames.createFile();
+//    configGames.createFile(nameGame, description, 3, genre, developer, publisher, price, information);
+
+    ConfigProgram configProgram;
+//    configProgram.createConfigFile();
+
+
+    auto listGames = configGames.getlistGames();
+
+    for (auto game : listGames)
+    {
+        std::cout << configGames.getPrice(game) << std::endl;
+    }
 
 
     return 0;

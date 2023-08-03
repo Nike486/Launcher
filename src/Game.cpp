@@ -19,6 +19,33 @@ void ConfigGames::createFile()
     fileJsonCreate << fileJson.dump(2);
 }
 
+void ConfigGames::createFile(std::string _nameGame,
+                            std::string _description,
+                            int _estimation,
+                            std::vector<std::string> _genre,
+                            std::vector<std::string> _developer,
+                            std::vector<std::string> _publisher,
+                            int _price,
+                            std::string _information)
+{
+    int a = getListGameJson().size();
+
+    std::ofstream fileJsonCreate("Game" + std::to_string (a) + ".json");
+    nlohmann::json fileJson;
+
+    fileJson["Name"] = _nameGame;
+    fileJson["Description"] = _description;
+    fileJson["Estimation"] = _estimation;
+    fileJson["Genre"] = _genre;
+    fileJson["Developer"] = _developer;
+    fileJson["Publisher"] = _publisher;
+    fileJson["Price"] = _price;
+    fileJson["Information"] = _information;
+
+    fileJsonCreate << fileJson.dump(2);
+}
+
+
 int ConfigGames::getPrice(std::string nameGame)
 {
     getlistGames();
@@ -57,6 +84,7 @@ std::vector<std::string> ConfigGames::getlistGames()
     }
     return listGames;
 }
+
 
 std::vector<std::string> ConfigGames::getListGameJson()
 {
