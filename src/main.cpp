@@ -4,13 +4,16 @@
 #include <Config.h>
 
 
+
 int main() {
 
 
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+
     std::string nameGame = "Elden Ring";
     int price = 2799;
-    std::string description = "НОВЫЙ ФЭНТЕЗИЙНЫЙ РОЛЕВОЙ БОЕВИК. Восстань, погасшая душа! "
-                              "Междуземье ждёт своего повелителя. "
+    std::string description = "НОВЫЙ ФЭНТЕЗИЙНЫЙ РОЛЕВОЙ БОЕВИК. Восстань, погасшая душа!"
+                              "Междуземье ждёт своего повелителя."
                               "Пусть благодать приведёт тебя к Кольцу Элден.";
     int estimation = 9;
 
@@ -40,19 +43,24 @@ int main() {
 
     ConfigGames configGames;
 
+
+    std::cout << configGames.getDescription("GTA");
+
+
+
+
 //    configGames.createFile();
-//    configGames.createFile(nameGame, description, 3, genre, developer, publisher, price, information);
+//    configGames.createFile(std::move(nameGame)
+//                           , std::move(description)
+//                           , 3
+//                           , std::move(genre)
+//                           , std::move(developer)
+//                           , std::move(publisher)
+//                           , price
+//                           , std::move(information));
 
-    ConfigProgram configProgram;
+//    ConfigProgram configProgram;
 //    configProgram.createConfigFile();
-
-
-    auto listGames = configGames.getlistGames();
-
-    for (auto game : listGames)
-    {
-        std::cout << configGames.getPrice(game) << std::endl;
-    }
 
 
     return 0;

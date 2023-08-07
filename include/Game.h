@@ -72,4 +72,10 @@ public:
 
     /// Функция возвращает список JSON со всеми играми
     std::vector<std::string> getListGameJson();
+
+    /// Функция возвращает описание по названию
+    std::string getDescription(std::string nameGame);
+
+
+
 };

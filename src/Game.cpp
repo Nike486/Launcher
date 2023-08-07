@@ -102,3 +102,24 @@ std::vector<std::string> ConfigGames::getListGameJson()
     }
     return listGameJson;
 }
+
+std::string ConfigGames::getDescription(std::string nameGame)
+{
+    getlistGames();
+    for (int i = 0; i < listGames.size(); i++)
+    {
+        if (listGames[i] == nameGame)
+        {
+            std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
+            if (fileJsonOpen.is_open())
+            {
+                nlohmann::json openJson;
+                fileJsonOpen >> openJson;
+                fileJsonOpen.close();
+                return openJson["Description"];
+            }
+        }
+    }
+
+    return std::string("");
+}
