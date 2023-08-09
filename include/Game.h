@@ -76,6 +76,6 @@ public:
     /// Функция возвращает описание по названию
     std::string getDescription(std::string nameGame);
 
-
-
+    /// Функция получает информацию об игре по названию
+    void parsingJSON(std::string nameGame);
 };

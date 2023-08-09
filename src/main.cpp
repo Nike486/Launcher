@@ -4,7 +4,6 @@
 #include <Config.h>
 
 
-
 int main() {
 
 
@@ -12,8 +11,8 @@ int main() {
 
     std::string nameGame = "Elden Ring";
     int price = 2799;
-    std::string description = "НОВЫЙ ФЭНТЕЗИЙНЫЙ РОЛЕВОЙ БОЕВИК. Восстань, погасшая душа!"
-                              "Междуземье ждёт своего повелителя."
+    std::string description = "НОВЫЙ ФЭНТЕЗИЙНЫЙ РОЛЕВОЙ БОЕВИК. Восстань, погасшая душа! "
+                              "Междуземье ждёт своего повелителя. "
                               "Пусть благодать приведёт тебя к Кольцу Элден.";
     int estimation = 9;
 
@@ -43,8 +42,12 @@ int main() {
 
     ConfigGames configGames;
 
+    std::cout << configGames.getDescription("Name1");
 
-    std::cout << configGames.getDescription("GTA");
+
+
+
+
 
 
 

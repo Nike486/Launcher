@@ -1,5 +1,37 @@
 #include "Game.h"
 
+#include <utility>
+
+
+void ConfigGames::parsingJSON(std::string nameGame)
+{
+    getlistGames();
+    for (int i = 0; i < listGames.size(); i++)
+    {
+        if (listGames[i] == nameGame)
+        {
+            std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
+            if (fileJsonOpen.is_open())
+            {
+                nlohmann::json openJson;
+                fileJsonOpen >> openJson;
+                fileJsonOpen.close();
+
+                nameGame = openJson["Name"];
+                description = openJson["Description"];
+                estimation = openJson["Estimation"];
+                genre = openJson["Genre"];
+                developer = openJson["Developer"];
+                publisher = openJson["Publisher"];
+                price = openJson["Price"];
+                information = openJson["Information"];
+            }
+        }
+    }
+}
+
+
+
 void ConfigGames::createFile()
 {
     int a = getListGameJson().size();
@@ -45,28 +77,6 @@ void ConfigGames::createFile(std::string _nameGame,
     fileJsonCreate << fileJson.dump(2);
 }
 
-
-int ConfigGames::getPrice(std::string nameGame)
-{
-    getlistGames();
-    for (int i = 0; i < listGames.size(); i++)
-    {
-        if (listGames[i] == nameGame)
-        {
-            std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
-            if (fileJsonOpen.is_open())
-            {
-                nlohmann::json openJson;
-                fileJsonOpen >> openJson;
-                fileJsonOpen.close();
-                return openJson["Price"];
-            }
-        }
-    }
-    return 0;
-}
-
-
 std::vector<std::string> ConfigGames::getlistGames()
 {
     listGames.clear();
@@ -85,7 +95,6 @@ std::vector<std::string> ConfigGames::getlistGames()
     return listGames;
 }
 
-
 std::vector<std::string> ConfigGames::getListGameJson()
 {
     listGameJson.clear();
@@ -103,23 +112,14 @@ std::vector<std::string> ConfigGames::getListGameJson()
     return listGameJson;
 }
 
+int ConfigGames::getPrice(std::string nameGame)
+{
+    parsingJSON(std::move(nameGame));
+    return price;
+}
+
 std::string ConfigGames::getDescription(std::string nameGame)
 {
-    getlistGames();
-    for (int i = 0; i < listGames.size(); i++)
-    {
-        if (listGames[i] == nameGame)
-        {
-            std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
-            if (fileJsonOpen.is_open())
-            {
-                nlohmann::json openJson;
-                fileJsonOpen >> openJson;
-                fileJsonOpen.close();
-                return openJson["Description"];
-            }
-        }
-    }
-
-    return std::string("");
+    parsingJSON(std::move(nameGame));
+    return description;
 }
