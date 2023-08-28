@@ -1,14 +1,12 @@
 #include "Game.h"
 
-#include <utility>
 
-
-void ConfigGames::parsingJSON(std::string nameGame)
+void ConfigGames::parsingJSON(std::string _nameGame)
 {
     getlistGames();
     for (int i = 0; i < listGames.size(); i++)
     {
-        if (listGames[i] == nameGame)
+        if (listGames[i] == _nameGame)
         {
             std::ifstream fileJsonOpen("Game" + std::to_string (i) + ".json");
             if (fileJsonOpen.is_open())
@@ -112,14 +110,44 @@ std::vector<std::string> ConfigGames::getListGameJson()
     return listGameJson;
 }
 
-int ConfigGames::getPrice(std::string nameGame)
+std::string ConfigGames::getDescription(std::string _nameGame)
 {
-    parsingJSON(std::move(nameGame));
+    parsingJSON(std::move(_nameGame));
+    return description;
+}
+
+int ConfigGames::getEstimation(std::string _nameGame)
+{
+    parsingJSON(std::move(_nameGame));
+    return estimation;
+}
+
+std::vector<std::string> ConfigGames::getGenre(std::string _nameGame)
+{
+    parsingJSON(std::move(_nameGame));
+    return genre;
+}
+
+std::vector<std::string> ConfigGames::getDeveloper(std::string _nameGame)
+{
+    parsingJSON(std::move(_nameGame));
+    return developer;
+}
+
+std::vector<std::string> ConfigGames::getPublisher(std::string _nameGame)
+{
+    parsingJSON(std::move(_nameGame));
+    return publisher;
+}
+
+int ConfigGames::getPrice(std::string _nameGame)
+{
+    parsingJSON(std::move(_nameGame));
     return price;
 }
 
-std::string ConfigGames::getDescription(std::string nameGame)
+std::string ConfigGames::getInformation(std::string _nameGame)
 {
-    parsingJSON(std::move(nameGame));
-    return description;
+    parsingJSON(std::move(_nameGame));
+    return information;
 }

@@ -3,7 +3,6 @@
 #include "nlohmann/json.hpp"
 #include "map"
 #include <fstream>
-#include <utility>
 #include <vector>
 #include <iostream>
 
@@ -64,8 +63,7 @@ public:
                    int price,
                    std::string information);
 
-    /// Функция возвращает Цену игры по названию
-    int getPrice(std::string nameGame);
+
 
     /// Функция возвращает список игр
     std::vector <std::string> getlistGames();
@@ -73,9 +71,29 @@ public:
     /// Функция возвращает список JSON со всеми играми
     std::vector<std::string> getListGameJson();
 
-    /// Функция возвращает описание по названию
-    std::string getDescription(std::string nameGame);
-
     /// Функция получает информацию об игре по названию
-    void parsingJSON(std::string nameGame);
+    void parsingJSON(std::string _nameGame);
+
+
+    /// Функция возвращает ОПИСАНИЕ по названию
+    std::string getDescription(std::string _nameGame);
+
+    /// Функция возвращает ОЦЕНКУ по названию
+    int getEstimation(std::string _nameGame);
+
+    /// Функция возвращает ЖАНР по названию
+    std::vector <std::string> getGenre(std::string _nameGame);
+
+    /// Функция возвращает РАЗРАБОТЧИКА по названию
+    std::vector <std::string> getDeveloper(std::string _nameGame);
+
+    /// Функция возвращает ИЗДАТЕЛЯ по названию
+    std::vector <std::string> getPublisher(std::string _nameGame);
+
+    /// Функция возвращает ЦЕНУ игры по названию
+    int getPrice(std::string nameGame);
+
+    /// Функция возвращает ИНФОРМАЦИЮ ОБ ИГРЕ по названию
+    std::string getInformation(std::string _nameGame);
+
 };
