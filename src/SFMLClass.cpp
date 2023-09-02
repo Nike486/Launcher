@@ -56,20 +56,38 @@ sf::RectangleShape SFML::line (sf::Color color,
 }
 
 
-sf::Texture SFML::imageTexture (std::vector<std::string> linkImages,
-                                int num)
+sf::Texture SFML::imageTexture (std::vector<std::vector<std::string>> linkImages,
+                                int numName,
+                                int numImage)
 {
     sf::Texture gameImageTexture;
-    gameImageTexture.loadFromFile(linkImages[num]);
+    gameImageTexture.loadFromFile(linkImages[numName][numImage]);
     gameImageTexture.setSmooth(true);
 
     return gameImageTexture;
 }
 
-sf::Font SFML::fontCalibri ()
+sf::Texture SFML::imageTexture(std::vector<std::string> linkImages,
+                               int numName)
+{
+    sf::Texture gameImageTexture;
+    gameImageTexture.loadFromFile(linkImages[numName]);
+    gameImageTexture.setSmooth(true);
+
+    return gameImageTexture;
+}
+
+sf::Font SFML::fontCalibriBold ()
 {
     sf::Font font;
     font.loadFromFile(".\\fonts\\calibri-bold.ttf");
+    return font;
+}
+
+sf::Font SFML::fontCalibriRegular()
+{
+    sf::Font font;
+    font.loadFromFile(".\\fonts\\Geologica.ttf");
     return font;
 }
 

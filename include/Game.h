@@ -12,18 +12,20 @@ class ConfigGames
 {
 private:
 
-    std::vector <std::string> listGames;    // Список всех игр
-    std::vector <std::string> listGameJson; // Список JSON файлов с играми
+    std::vector <std::string> listGames;        // Список всех игр
+    std::vector <std::string> listGameJson;     // Список JSON файлов с играми
+
+    std::string nameGame;                       // Название игры
+    std::string description;                    // Описание
+    int estimation;                             // Оценка
+    std::vector <std::string> genre;            // Жанр (может быть несколько)
+    std::vector <std::string> developer;        // Разработчик (может быть несколько)
+    std::vector <std::string> publisher;        // Издатель (может быть несколько)
+    int price;                                  // Цена
+    std::string information;                    // Об игре
+    std::vector<std::string> images;            // Путь до картинок
 
 
-    std::string nameGame;                   // Название игры
-    std::string description;                // Описание
-    int estimation;                         // Оценка
-    std::vector <std::string> genre;        // Жанр (может быть несколько)
-    std::vector <std::string> developer;    // Разработчик (может быть несколько)
-    std::vector <std::string> publisher;    // Издатель (может быть несколько)
-    int price;                              // Цена
-    std::string information;                // Об игре
 
 
 public:
@@ -38,6 +40,7 @@ public:
         publisher = {};
         price = 0;
         information = "";
+        images = {};
     }
 
 //    ConfigGames(std::string nameGame, std::string description, int estimation, std::vector <std::string> genre, std::vector <std::string> developer, std::vector <std::string> publisher, int price,  std::string information)
@@ -52,16 +55,17 @@ public:
 //        this->information = std::move(information);
 //    }
 
-    /// Создаём файл либо заполненый либо пустой (зависит от конструктора класса)
+    /// Создаём файл либо заполненый, либо пустой (зависит от конструктора класса)
     void createFile();
-    void createFile(std::string nameGame,
-                   std::string description,
-                   int estimation,
-                   std::vector <std::string> genre,
-                   std::vector <std::string> developer,
-                   std::vector <std::string> publisher,
-                   int price,
-                   std::string information);
+    void createFile(std::string _nameGame,
+                   std::string _description,
+                   int _estimation,
+                   std::vector <std::string> _genre,
+                   std::vector <std::string> _developer,
+                   std::vector <std::string> _publisher,
+                   int _price,
+                   std::string _information,
+                   std::vector<std::string> _images);
 
 
 
@@ -91,9 +95,15 @@ public:
     std::vector <std::string> getPublisher(std::string _nameGame);
 
     /// Функция возвращает ЦЕНУ игры по названию
-    int getPrice(std::string nameGame);
+    int getPrice(std::string _nameGame);
 
     /// Функция возвращает ИНФОРМАЦИЮ ОБ ИГРЕ по названию
     std::string getInformation(std::string _nameGame);
+
+    /// Функция возвращает ПУТИ ДО КАРТИНОК по названию
+    std::vector <std::string> getImages(std::string _nameGame);
+
+    /// Функция возвращает пути до картинок для РЕКОМЕНДАЦИЙ по названиям игр (от 3х)
+    std::vector<std::vector<std::string>> getRecommendations(std::vector<std::string> _nameGame);
 
 };

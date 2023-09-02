@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <utility>
+
 
 void ConfigGames::parsingJSON(std::string _nameGame)
 {
@@ -23,6 +25,7 @@ void ConfigGames::parsingJSON(std::string _nameGame)
                 publisher = openJson["Publisher"];
                 price = openJson["Price"];
                 information = openJson["Information"];
+                images = openJson["Images"];
             }
         }
     }
@@ -45,6 +48,7 @@ void ConfigGames::createFile()
     fileJson["Publisher"] = publisher;
     fileJson["Price"] = price;
     fileJson["Information"] = information;
+    fileJson["Images"] = images;
 
     fileJsonCreate << fileJson.dump(2);
 }
@@ -56,7 +60,8 @@ void ConfigGames::createFile(std::string _nameGame,
                             std::vector<std::string> _developer,
                             std::vector<std::string> _publisher,
                             int _price,
-                            std::string _information)
+                            std::string _information,
+                             std::vector<std::string> _images)
 {
     int a = getListGameJson().size();
 
@@ -71,6 +76,7 @@ void ConfigGames::createFile(std::string _nameGame,
     fileJson["Publisher"] = _publisher;
     fileJson["Price"] = _price;
     fileJson["Information"] = _information;
+    fileJson["Images"] = _images;
 
     fileJsonCreate << fileJson.dump(2);
 }
@@ -150,4 +156,21 @@ std::string ConfigGames::getInformation(std::string _nameGame)
 {
     parsingJSON(std::move(_nameGame));
     return information;
+}
+
+std::vector<std::string> ConfigGames::getImages(std::string _nameGame)
+{
+    parsingJSON(std::move(_nameGame));
+    return images;
+}
+
+std::vector<std::vector<std::string>> ConfigGames::getRecommendations(std::vector<std::string> _nameGame)
+{
+    std::vector<std::vector<std::string>> listRecommendations;
+
+    for (int i = 0; i < _nameGame.size(); ++i)
+    {
+        listRecommendations.push_back(getImages(_nameGame[i]));
+    }
+    return listRecommendations;
 }

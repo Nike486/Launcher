@@ -1,51 +1,46 @@
 #pragma once
 
+#include <utility>
 #include "SFMLClass.h"
+#include "Game.h"
+
 
 class Set : protected SFML
 {
 private:
 
+    ConfigGames configGames;
+
     sf::RenderWindow gamesWindow;
     sf::RenderWindow mainWindow;
 
-    int numCentre = 1;
-    int numLeft = 0;
-    int numRight = 2;
+    std::vector<std::string> listRecommendationsGames;
 
-    std::vector<std::string> linkImages = {".\\images\\GTA.jpg", ".\\images\\Witcher.jpeg", ".\\images\\NFS.jpeg", ".\\images\\RGR2.jpeg"};
+    std::vector<std::vector<std::string>> linkImages = configGames.getRecommendations(listRecommendationsGames);
     std::vector<std::string> linkArrow = {".\\images\\Left.png", ".\\images\\Right.png"};
 
     //// Текстуры
-    sf::Texture gameImageTextureCentre = imageTexture (linkImages, numCentre);
-    sf::Texture gameImageTextureLeft = imageTexture (linkImages, numLeft);
-    sf::Texture gameImageTextureRight = imageTexture (linkImages, numRight);
+
+    sf::Texture gameImageTextureBase;
+    sf::Texture gameImageTextureOne;
+    sf::Texture gameImageTextureTwo;
+    sf::Texture gameImageTextureThree;
+    sf::Texture gameImageTextureFour;
 
     sf::Texture textureLiftArrow = imageTexture (linkArrow, 0);
     sf::Texture textureRightArrow = imageTexture (linkArrow, 1);
 
     //// Картинки рекомендаций
-    sf::RectangleShape gameImageCentre = image(
-            gameImageTextureCentre,
-            sf::Color(255, 255, 255, 255),
-            sf::Vector2f (720.0f, 430.0f),
-            sf::Vector2f (450.0f, 400.0f));
-
-    sf::RectangleShape gameImageLeft  = image(
-            gameImageTextureLeft,
-            sf::Color(255, 255, 255, 50),
-            sf::Vector2f (650.0f, 390.0f),
-            sf::Vector2f (-280.0f, 420.0f));
-
-    sf::RectangleShape gameImageRight= image(
-            gameImageTextureRight,
-            sf::Color(255, 255, 255, 50),
-            sf::Vector2f (650.0f, 390.0f),
-            sf::Vector2f (1250.0f, 420.0f));
+    sf::RectangleShape gameImageRecommendationBase;
+    sf::RectangleShape gameImageRecommendationOne;
+    sf::RectangleShape gameImageRecommendationTwo;
+    sf::RectangleShape gameImageRecommendationThree;
+    sf::RectangleShape gameImageRecommendationFour;
 
 
     //// Шрифты
-    sf::Font fontCalibri = SFML::fontCalibri();
+    sf::Font fontCalibriBold = SFML::fontCalibriBold();
+    sf::Font fontCalibriRegular = SFML::fontCalibriRegular();
 
 
     //// Цвета
@@ -54,9 +49,14 @@ private:
 
     //// Линии
     sf::RectangleShape upLine = line(
-            sf::Color(41,49,51),
+            sf::Color(customGrey),
             sf::Vector2f (1600.0f, 50.0f),
             sf::Vector2f(0.0f, 0.0f));
+
+    sf::RectangleShape recommendationRectangle = line(
+            customGrey,
+            sf::Vector2f(1200.0f, 450.0f),
+            sf::Vector2f(200.0f, 400.0f));
 
 
     //// Кнопки
@@ -76,45 +76,52 @@ private:
             sf::Vector2f(850.0f, 0.0f));
 
     sf::RectangleShape buttonPrevious = image(
-            textureRightArrow,
-            sf::Color(255, 255, 255, 50),
-            sf::Vector2f (50.0f, 50.0f),
-            sf::Vector2f (1185.0f, 600.0f));
-
-    sf::RectangleShape buttonNext = image(
             textureLiftArrow,
             sf::Color(255, 255, 255, 50),
             sf::Vector2f (50.0f, 50.0f),
-            sf::Vector2f (385.0f, 600.0f));
+            sf::Vector2f (140.0f, 600.0f));
+
+    sf::RectangleShape buttonNext = image(
+            textureRightArrow,
+            sf::Color(255, 255, 255, 50),
+            sf::Vector2f (50.0f, 50.0f),
+            sf::Vector2f (1410.0f, 600.0f));
 
 
     //// Тексты
     sf::Text textButtonGames = text(
-            fontCalibri,
+            fontCalibriBold,
             "Games",
             20,
             sf::Color(208,208,208),
             sf::Vector2f (buttonGames.getPosition().x + 20, buttonGames.getPosition().y + 11));
 
     sf::Text textButtonInfo = text(
-            fontCalibri,
+            fontCalibriBold,
             "Info",
             20,
             sf::Color(208,208,208),
             sf::Vector2f (buttonInfo.getPosition().x + 33, buttonInfo.getPosition().y + 11));
 
     sf::Text textButtonLibrary = text(
-            fontCalibri,
+            fontCalibriBold,
             "Library",
             20,
             sf::Color(208,208,208),
             sf::Vector2f (buttonLibrary.getPosition().x + 21, buttonLibrary.getPosition().y + 11));
 
+    sf::Text textNameGame;
+
 
 public:
 
-    //// Окна
-    void GameWindowCreate (sf::Event event);
+    Set(std::vector<std::string> _listRecommendationsGames) : listRecommendationsGames(std::move(_listRecommendationsGames)){};
 
-    void mainWindowCreate ();
+
+    void createRecommendationsImage (int numName);
+    void createRecommendationsName (int numName);
+
+    //// Окна
+    void GameWindowCreate(sf::Event event);
+    void mainWindowCreate();
 };

@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
 #include "Game.h"
-#include <Config.h>
 #include "SFMLContent.h"
 
 
@@ -10,10 +8,19 @@ int main() {
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-
-    Set set;
+    Set set({"GTA", "NFS", "RGR2", "Witcher", "Elden Ring"});
 
     set.mainWindowCreate();
+
+    return 0;
+}
+
+
+
+//
+//    Set set;
+//
+//    set.mainWindowCreate();
 
 
 
@@ -92,7 +99,3 @@ int main() {
 
 //    ConfigProgram configProgram;
 //    configProgram.createConfigFile();
-
-
-    return 0;
-}

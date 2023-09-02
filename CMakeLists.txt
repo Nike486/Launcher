@@ -10,8 +10,6 @@ set(SFML_DIR ./SFML-2.6.0/lib/cmake/SFML)
 
 find_package(SFML COMPONENTS system window graphics audio REQUIRED)
 
-include_directories(C:/Users/evgen/CLionProjects/SFML-2.6.0/include)
-
 add_subdirectory(src)
 
 target_link_libraries(Launcher sfml-graphics sfml-audio)

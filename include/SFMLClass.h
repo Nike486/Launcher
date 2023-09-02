@@ -32,11 +32,18 @@ protected:
                              sf::Vector2f position);
 
     //// Фунуция для создания текстуры
-    sf::Texture imageTexture (std::vector<std::string> linkImages,
-                              int num);
+    sf::Texture imageTexture (std::vector<std::vector<std::string>> linkImages,
+                              int numName,
+                              int numImage);
 
-    //// Фунуция для создания шрифта Calibri
-    sf::Font fontCalibri();
+    sf::Texture imageTexture (std::vector<std::string> linkImages,
+                              int numName);
+
+    //// Фунуция для создания шрифта CalibriBold
+    sf::Font fontCalibriBold();
+
+    //// Фунуция для создания шрифта CalibriRegular
+    sf::Font fontCalibriRegular();
 
     //// Фунуция для создания цвета (серый)
     sf::Color customGrey();
