@@ -18,6 +18,7 @@ private:
 
     std::vector<std::vector<std::string>> linkImages = configGames.getRecommendations(listRecommendationsGames);
     std::vector<std::string> linkArrow = {".\\images\\Left.png", ".\\images\\Right.png"};
+    std::string linkRecommendationButton = ".\\images\\recBut.png";
 
     //// Текстуры
 
@@ -29,6 +30,8 @@ private:
 
     sf::Texture textureLiftArrow = imageTexture (linkArrow, 0);
     sf::Texture textureRightArrow = imageTexture (linkArrow, 1);
+
+    sf::Texture textureRecommendationButton = imageTexture (linkRecommendationButton);
 
     //// Картинки рекомендаций
     sf::RectangleShape gameImageRecommendationBase;
@@ -58,6 +61,11 @@ private:
             sf::Vector2f(1200.0f, 450.0f),
             sf::Vector2f(200.0f, 400.0f));
 
+    sf::RectangleShape centre = line(
+            sf::Color(255, 255, 255),
+            sf::Vector2f(5.0f, 900.0f),
+            sf::Vector2f(797.5f, 0.0f));
+
 
     //// Кнопки
     sf::RectangleShape buttonGames   =  button(
@@ -86,6 +94,12 @@ private:
             sf::Color(255, 255, 255, 50),
             sf::Vector2f (50.0f, 50.0f),
             sf::Vector2f (1410.0f, 600.0f));
+
+    sf::RectangleShape buttonRecommendation = image(
+            textureRecommendationButton,
+            sf::Color(255, 255, 255, 255),
+            sf::Vector2f (30.0f, 20.0f),
+            sf::Vector2f (785.0f, 860.0f));
 
 
     //// Тексты
@@ -120,6 +134,7 @@ public:
 
     void createRecommendationsImage (int numName);
     void createRecommendationsName (int numName);
+    std::vector<sf::RectangleShape> createRecommendationsButton();
 
     //// Окна
     void GameWindowCreate(sf::Event event);

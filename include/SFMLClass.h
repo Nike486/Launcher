@@ -39,6 +39,8 @@ protected:
     sf::Texture imageTexture (std::vector<std::string> linkImages,
                               int numName);
 
+    sf::Texture imageTexture (std::string linkImages);
+
     //// Фунуция для создания шрифта CalibriBold
     sf::Font fontCalibriBold();
 

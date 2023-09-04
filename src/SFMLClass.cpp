@@ -77,6 +77,15 @@ sf::Texture SFML::imageTexture(std::vector<std::string> linkImages,
     return gameImageTexture;
 }
 
+sf::Texture SFML::imageTexture(std::string linkImages)
+{
+    sf::Texture gameImageTexture;
+    gameImageTexture.loadFromFile(linkImages);
+    gameImageTexture.setSmooth(true);
+
+    return gameImageTexture;
+}
+
 sf::Font SFML::fontCalibriBold ()
 {
     sf::Font font;

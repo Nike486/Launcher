@@ -37,6 +37,7 @@ void Set::mainWindowCreate()
 
     createRecommendationsImage(numRecommendationsGame);
     createRecommendationsName(numRecommendationsGame);
+    auto recommendationsButtons = createRecommendationsButton();
 
     while (mainWindow.isOpen())
     {
@@ -162,8 +163,31 @@ void Set::mainWindowCreate()
                 createRecommendationsImage(numRecommendationsGame);
                 textNameGame.setString(listRecommendationsGames[numRecommendationsGame]);
             }
+
+            for (int i = 0; i < recommendationsButtons.size(); ++i)
+            {
+                if (recommendationsButtons[i].getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+                {
+                    numRecommendationsGame = i;
+                    createRecommendationsImage(numRecommendationsGame);
+                    textNameGame.setString(listRecommendationsGames[numRecommendationsGame]);
+                }
+            }
         }
 
+        recommendationsButtons[numRecommendationsGame].setFillColor(sf::Color(255, 255, 255, 200));
+
+        for (int i = 0; i < recommendationsButtons.size(); ++i)
+        {
+            if (recommendationsButtons[i].getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+            {
+                recommendationsButtons[i].setFillColor(sf::Color(255, 255, 255, 200));
+            }
+            else if (i != numRecommendationsGame)
+            {
+                recommendationsButtons[i].setFillColor(sf::Color(255, 255, 255, 50));
+            }
+        }
 
 
 
@@ -204,12 +228,15 @@ void Set::mainWindowCreate()
 
         mainWindow.draw(buttonPrevious);
         mainWindow.draw(buttonNext);
+        for (auto getRecommendationButtons : recommendationsButtons)
+        {
+            mainWindow.draw(getRecommendationButtons);
+        }
 
         mainWindow.draw(textButtonGames);
         mainWindow.draw(textButtonInfo);
         mainWindow.draw(textButtonLibrary);
         mainWindow.draw(textNameGame);
-
 
         mainWindow.display();
 
@@ -284,6 +311,35 @@ void Set::createRecommendationsName(int numName)
                 sf::Color(208,208,208),
                 sf::Vector2f (1000.0f, 425.0f));
     }
+}
+
+std::vector<sf::RectangleShape> Set::createRecommendationsButton()
+{
+    std::vector<sf::RectangleShape> listButtonRecommendation;
+    auto deltaSize = 0.0f;
+    auto step = 17.5f * (float)(listRecommendationsGames.size() - 1);
+
+    for (auto i = 0; i < listRecommendationsGames.size(); i++)
+    {
+        if (i == 0)
+        {
+            listButtonRecommendation.push_back(image(
+                    textureRecommendationButton,
+                    sf::Color(255, 255, 255, 50),
+                    sf::Vector2f (30.0f, 20.0f),
+                    sf::Vector2f (785.0f - step, 860.0f)));
+        }
+        else
+        {
+            deltaSize += 35.0f;
+            listButtonRecommendation.push_back(image(
+                    textureRecommendationButton,
+                    sf::Color(255, 255, 255, 50),
+                    sf::Vector2f (30.0f, 20.0f),
+                    sf::Vector2f (785.0f + deltaSize - step, 860.0f)));
+        }
+    }
+    return listButtonRecommendation;
 }
 
 
