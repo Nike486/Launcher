@@ -33,12 +33,16 @@ private:
 
     sf::Texture textureRecommendationButton = imageTexture (linkRecommendationButton);
 
+    std::vector<sf::Texture> gameImageTexture;
+
     //// Картинки рекомендаций
     sf::RectangleShape gameImageRecommendationBase;
     sf::RectangleShape gameImageRecommendationOne;
     sf::RectangleShape gameImageRecommendationTwo;
     sf::RectangleShape gameImageRecommendationThree;
     sf::RectangleShape gameImageRecommendationFour;
+
+    std::vector<sf::RectangleShape> gameImageRecommendation;
 
 
     //// Шрифты

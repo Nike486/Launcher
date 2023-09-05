@@ -38,6 +38,7 @@ void Set::mainWindowCreate()
     createRecommendationsImage(numRecommendationsGame);
     createRecommendationsName(numRecommendationsGame);
     auto recommendationsButtons = createRecommendationsButton();
+    textNameGame.setString(listRecommendationsGames[numRecommendationsGame]);
 
     while (mainWindow.isOpen())
     {
@@ -76,53 +77,19 @@ void Set::mainWindowCreate()
             textButtonLibrary.setFillColor(sf::Color(208, 208, 208));
         }
 
-
-        if (gameImageRecommendationOne.getGlobalBounds().contains(mousePosition.x, mousePosition.y) && linkImages[numRecommendationsGame].size() >= 2)
+        gameImageTextureBase = imageTexture(linkImages, numRecommendationsGame, 0);
+        for (int i = 1; i < gameImageRecommendation.size(); ++i)
         {
-            gameImageRecommendationOne.setFillColor(sf::Color(255, 255, 255, 255));
-            gameImageTextureBase = imageTexture (linkImages, numRecommendationsGame, 1);
-
-            gameImageRecommendationTwo.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationThree.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationFour.setFillColor(sf::Color(255, 255, 255, 120));
+            if (gameImageRecommendation[i].getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+            {
+                gameImageRecommendation[i].setFillColor(sf::Color(255, 255, 255, 255));
+                gameImageTextureBase = imageTexture(linkImages, numRecommendationsGame, i);
+            }
+            else
+            {
+                gameImageRecommendation[i].setFillColor(sf::Color(255, 255, 255, 120));
+            }
         }
-        else if (gameImageRecommendationTwo.getGlobalBounds().contains(mousePosition.x, mousePosition.y) && linkImages[numRecommendationsGame].size() >= 3)
-        {
-            gameImageRecommendationTwo.setFillColor(sf::Color(255, 255, 255, 255));
-            gameImageTextureBase = imageTexture (linkImages, numRecommendationsGame, 2);
-
-            gameImageRecommendationOne.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationThree.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationFour.setFillColor(sf::Color(255, 255, 255, 120));
-        }
-        else if (gameImageRecommendationThree.getGlobalBounds().contains(mousePosition.x, mousePosition.y) && linkImages[numRecommendationsGame].size() >= 4)
-        {
-            gameImageRecommendationThree.setFillColor(sf::Color(255, 255, 255, 255));
-            gameImageTextureBase = imageTexture (linkImages, numRecommendationsGame, 3);
-
-            gameImageRecommendationOne.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationTwo.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationFour.setFillColor(sf::Color(255, 255, 255, 120));
-        }
-        else if (gameImageRecommendationFour.getGlobalBounds().contains(mousePosition.x, mousePosition.y) && linkImages[numRecommendationsGame].size() >= 5)
-        {
-            gameImageRecommendationFour.setFillColor(sf::Color(255, 255, 255, 255));
-            gameImageTextureBase = imageTexture (linkImages, numRecommendationsGame, 4);
-
-            gameImageRecommendationOne.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationTwo.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationThree.setFillColor(sf::Color(255, 255, 255, 120));
-        }
-        else if (linkImages[numRecommendationsGame].size() >= 0)
-        {
-            gameImageRecommendationOne.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationTwo.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationThree.setFillColor(sf::Color(255, 255, 255, 120));
-            gameImageRecommendationFour.setFillColor(sf::Color(255, 255, 255, 120));
-
-            gameImageTextureBase = imageTexture (linkImages, numRecommendationsGame, 0);
-        }
-
 
         if (buttonPrevious.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
         {
@@ -148,8 +115,7 @@ void Set::mainWindowCreate()
                 {
                     numRecommendationsGame = 0;
                 }
-
-                createRecommendationsImage(numRecommendationsGame);
+                createRecommendationsImage (numRecommendationsGame);
                 textNameGame.setString(listRecommendationsGames[numRecommendationsGame]);
             }
             else if (buttonPrevious.getGlobalBounds().contains(mousePosition.x, mousePosition.y))
@@ -159,8 +125,7 @@ void Set::mainWindowCreate()
                 {
                     numRecommendationsGame = linkImages.size() - 1;
                 }
-
-                createRecommendationsImage(numRecommendationsGame);
+                createRecommendationsImage (numRecommendationsGame);
                 textNameGame.setString(listRecommendationsGames[numRecommendationsGame]);
             }
 
@@ -169,7 +134,7 @@ void Set::mainWindowCreate()
                 if (recommendationsButtons[i].getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
                     numRecommendationsGame = i;
-                    createRecommendationsImage(numRecommendationsGame);
+                    createRecommendationsImage (numRecommendationsGame);
                     textNameGame.setString(listRecommendationsGames[numRecommendationsGame]);
                 }
             }
@@ -190,8 +155,6 @@ void Set::mainWindowCreate()
         }
 
 
-
-
         mainWindow.clear(sf::Color(208, 208, 208));
 
         mainWindow.draw(upLine);
@@ -201,34 +164,16 @@ void Set::mainWindowCreate()
         mainWindow.draw(buttonLibrary);
         mainWindow.draw(buttonInfo);
 
-        if(!linkImages[numRecommendationsGame].empty())
+        for (const auto & i : gameImageRecommendation)
         {
-            mainWindow.draw(gameImageRecommendationBase);
+            mainWindow.draw(i);
         }
 
-        if(linkImages[numRecommendationsGame].size() >= 2)
-        {
-            mainWindow.draw(gameImageRecommendationOne);
-        }
-
-        if(linkImages[numRecommendationsGame].size() >= 3)
-        {
-            mainWindow.draw(gameImageRecommendationTwo);
-        }
-
-        if(linkImages[numRecommendationsGame].size() >= 4)
-        {
-            mainWindow.draw(gameImageRecommendationThree);
-        }
-
-        if(linkImages[numRecommendationsGame].size() >= 5)
-        {
-            mainWindow.draw(gameImageRecommendationFour);
-        }
 
         mainWindow.draw(buttonPrevious);
         mainWindow.draw(buttonNext);
-        for (auto getRecommendationButtons : recommendationsButtons)
+
+        for (const auto& getRecommendationButtons : recommendationsButtons)
         {
             mainWindow.draw(getRecommendationButtons);
         }
@@ -239,64 +184,60 @@ void Set::mainWindowCreate()
         mainWindow.draw(textNameGame);
 
         mainWindow.display();
-
     }
-
 }
 
-
-
-void Set::createRecommendationsImage(int numName)
+void Set::createRecommendationsImage (int numName)
 {
+    gameImageRecommendation.clear();
 
-    if(!linkImages[numName].empty())
+    if (!linkImages[numName].empty())
     {
-        gameImageTextureBase = imageTexture (linkImages, numName, 0);
-        gameImageRecommendationBase = image(
+        gameImageTextureBase = imageTexture(linkImages, numName, 0);
+        gameImageRecommendation.push_back(image(
                 gameImageTextureBase,
                 sf::Color(255, 255, 255, 255),
-                sf::Vector2f (750.0f, 450.0f),
-                sf::Vector2f (200.0f, 400.0f));
+                sf::Vector2f(750.0f, 450.0f),
+                sf::Vector2f(200.0f, 400.0f)));
     }
 
-    if(linkImages[numName].size() >= 2)
+    if (linkImages[numName].size() >= 2)
     {
-        gameImageTextureOne = imageTexture (linkImages, numName, 1);
-        gameImageRecommendationOne = image(
+        gameImageTextureOne = imageTexture(linkImages, numName, 1);
+        gameImageRecommendation.push_back(image(
                 gameImageTextureOne,
                 sf::Color(255, 255, 255, 120),
-                sf::Vector2f (210.0f, 100.0f),
-                sf::Vector2f (960.0f, 500.0f));
+                sf::Vector2f(210.0f, 100.0f),
+                sf::Vector2f(960.0f, 500.0f)));
     }
 
-    if(linkImages[numName].size() >= 3)
+    if (linkImages[numName].size() >= 3)
     {
-        gameImageTextureTwo = imageTexture (linkImages, numName, 2);
-        gameImageRecommendationTwo = image(
+        gameImageTextureTwo = imageTexture(linkImages, numName, 2);
+        gameImageRecommendation.push_back(image(
                 gameImageTextureTwo,
                 sf::Color(255, 255, 255, 120),
-                sf::Vector2f (210.0f, 100.0f),
-                sf::Vector2f (1180.0f, 500.0f));
+                sf::Vector2f(210.0f, 100.0f),
+                sf::Vector2f(1180.0f, 500.0f)));
     }
 
-    if(linkImages[numName].size() >= 4)
+    if (linkImages[numName].size() >= 4)
     {
-        gameImageTextureThree = imageTexture (linkImages, numName, 3);
-        gameImageRecommendationThree = image(
+        gameImageTextureThree = imageTexture(linkImages, numName, 3);
+        gameImageRecommendation.push_back(image(
                 gameImageTextureThree,
                 sf::Color(255, 255, 255, 120),
-                sf::Vector2f (210.0f, 100.0f),
-                sf::Vector2f (960.0f, 610.0f));
+                sf::Vector2f(210.0f, 100.0f),
+                sf::Vector2f(960.0f, 610.0f)));
     }
-
-    if(linkImages[numName].size() >= 5)
+    if (linkImages[numName].size() >= 5)
     {
-        gameImageTextureFour = imageTexture (linkImages, numName, 4);
-        gameImageRecommendationFour = image(
+        gameImageTextureFour = imageTexture(linkImages, numName, 4);
+        gameImageRecommendation.push_back(image(
                 gameImageTextureFour,
                 sf::Color(255, 255, 255, 120),
-                sf::Vector2f (210.0f, 100.0f),
-                sf::Vector2f (1180.0f, 610.0f));
+                sf::Vector2f(210.0f, 100.0f),
+                sf::Vector2f(1180.0f, 610.0f)));
     }
 }
 
@@ -341,5 +282,3 @@ std::vector<sf::RectangleShape> Set::createRecommendationsButton()
     }
     return listButtonRecommendation;
 }
-
-
