@@ -15,6 +15,7 @@ private:
     sf::RenderWindow mainWindow;
 
     std::vector<std::string> listRecommendationsGames;
+    std::string linkBanner = ".\\images\\COD.jpg";
 
     std::vector<std::vector<std::string>> linkImages = configGames.getRecommendations(listRecommendationsGames);
     std::vector<std::string> linkArrow = {".\\images\\Left.png", ".\\images\\Right.png"};
@@ -28,21 +29,21 @@ private:
     sf::Texture gameImageTextureThree;
     sf::Texture gameImageTextureFour;
 
+    sf::Texture bannerTexture = imageTexture (linkBanner);
+
     sf::Texture textureLiftArrow = imageTexture (linkArrow, 0);
     sf::Texture textureRightArrow = imageTexture (linkArrow, 1);
 
     sf::Texture textureRecommendationButton = imageTexture (linkRecommendationButton);
 
-    std::vector<sf::Texture> gameImageTexture;
-
     //// Картинки рекомендаций
-    sf::RectangleShape gameImageRecommendationBase;
-    sf::RectangleShape gameImageRecommendationOne;
-    sf::RectangleShape gameImageRecommendationTwo;
-    sf::RectangleShape gameImageRecommendationThree;
-    sf::RectangleShape gameImageRecommendationFour;
-
     std::vector<sf::RectangleShape> gameImageRecommendation;
+
+    sf::RectangleShape banner = image(
+            bannerTexture,
+            sf::Color(255, 255, 255, 255),
+            sf::Vector2f (1600.0f, 300.0f),
+            sf::Vector2f (0.0f, 50.0f));
 
 
     //// Шрифты
@@ -72,32 +73,32 @@ private:
 
 
     //// Кнопки
-    sf::RectangleShape buttonGames   =  button(
-            sf::Color(customGrey),
-            sf::Vector2f (100.0f, 50.0f),
-            sf::Vector2f(650.0f, 0.0f));
 
-    sf::RectangleShape buttonInfo    =  button(
-            sf::Color(customGrey),
-            sf::Vector2f (100.0f, 50.0f),
-            sf::Vector2f(750.0f, 0.0f));
+    std::vector <sf::RectangleShape> buttonGamesInfoLibrary = {
+            button(
+                    sf::Color(customGrey),
+                    sf::Vector2f (100.0f, 50.0f),
+                    sf::Vector2f(650.0f, 0.0f)),
+            button(
+                    sf::Color(customGrey),
+                    sf::Vector2f (100.0f, 50.0f),
+                    sf::Vector2f(750.0f, 0.0f)),
+            button(
+                    sf::Color(customGrey),
+                    sf::Vector2f (100.0f, 50.0f),
+                    sf::Vector2f(850.0f, 0.0f))};
 
-    sf::RectangleShape buttonLibrary =  button(
-            sf::Color(customGrey),
-            sf::Vector2f (100.0f, 50.0f),
-            sf::Vector2f(850.0f, 0.0f));
-
-    sf::RectangleShape buttonPrevious = image(
-            textureLiftArrow,
-            sf::Color(255, 255, 255, 50),
-            sf::Vector2f (50.0f, 50.0f),
-            sf::Vector2f (140.0f, 600.0f));
-
-    sf::RectangleShape buttonNext = image(
-            textureRightArrow,
-            sf::Color(255, 255, 255, 50),
-            sf::Vector2f (50.0f, 50.0f),
-            sf::Vector2f (1410.0f, 600.0f));
+    std::vector <sf::RectangleShape> buttonPreviousAndNext = {
+            image(
+                    textureLiftArrow,
+                    sf::Color(255, 255, 255, 50),
+                    sf::Vector2f (50.0f, 50.0f),
+                    sf::Vector2f (140.0f, 600.0f)),
+            image(
+                    textureRightArrow,
+                    sf::Color(255, 255, 255, 50),
+                    sf::Vector2f (50.0f, 50.0f),
+                    sf::Vector2f (1410.0f, 600.0f))};
 
     sf::RectangleShape buttonRecommendation = image(
             textureRecommendationButton,
@@ -107,26 +108,28 @@ private:
 
 
     //// Тексты
-    sf::Text textButtonGames = text(
-            fontCalibriBold,
-            "Games",
-            20,
-            sf::Color(208,208,208),
-            sf::Vector2f (buttonGames.getPosition().x + 20, buttonGames.getPosition().y + 11));
 
-    sf::Text textButtonInfo = text(
-            fontCalibriBold,
-            "Info",
-            20,
-            sf::Color(208,208,208),
-            sf::Vector2f (buttonInfo.getPosition().x + 33, buttonInfo.getPosition().y + 11));
-
-    sf::Text textButtonLibrary = text(
-            fontCalibriBold,
-            "Library",
-            20,
-            sf::Color(208,208,208),
-            sf::Vector2f (buttonLibrary.getPosition().x + 21, buttonLibrary.getPosition().y + 11));
+    std::vector<sf::Text> textGamesInfoLibrary =
+            {
+                    text(
+                            fontCalibriBold,
+                            "Games",
+                            20,
+                            sf::Color(208,208,208),
+                            sf::Vector2f (buttonGamesInfoLibrary[0].getPosition().x + 20, buttonGamesInfoLibrary[0].getPosition().y + 11)),
+                    text(
+                            fontCalibriBold,
+                            "Info",
+                            20,
+                            sf::Color(208,208,208),
+                            sf::Vector2f (buttonGamesInfoLibrary[1].getPosition().x + 33, buttonGamesInfoLibrary[1].getPosition().y + 11)),
+                    text(
+                            fontCalibriBold,
+                            "Library",
+                            20,
+                            sf::Color(208,208,208),
+                            sf::Vector2f (buttonGamesInfoLibrary[2].getPosition().x + 21, buttonGamesInfoLibrary[2].getPosition().y + 11))
+            };
 
     sf::Text textNameGame;
 
