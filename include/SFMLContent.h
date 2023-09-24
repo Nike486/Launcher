@@ -23,11 +23,8 @@ private:
 
     //// Текстуры
 
-    sf::Texture gameImageTextureBase;
-    sf::Texture gameImageTextureOne;
-    sf::Texture gameImageTextureTwo;
-    sf::Texture gameImageTextureThree;
-    sf::Texture gameImageTextureFour;
+    std::vector<sf::Texture> ImageTextureInGames;
+    std::vector<sf::Texture> ImageTextureInRecommendation;
 
     sf::Texture bannerTexture = imageTexture (linkBanner);
 
@@ -70,7 +67,6 @@ private:
             sf::Color(255, 255, 255),
             sf::Vector2f(5.0f, 900.0f),
             sf::Vector2f(797.5f, 0.0f));
-
 
     //// Кнопки
 
@@ -142,8 +138,12 @@ public:
     void createRecommendationsImage (int numName);
     void createRecommendationsName (int numName);
     std::vector<sf::RectangleShape> createRecommendationsButton();
+    std::vector<sf::RectangleShape> createGameListImage();
 
     //// Окна
-    void GameWindowCreate(sf::Event event);
+    void gameWindowCreate(sf::Event event);
     void mainWindowCreate();
+
+    //// Генератор списка игр
+    std::vector<sf::RectangleShape> gameListGenerator();
 };
