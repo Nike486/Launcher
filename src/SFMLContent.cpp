@@ -4,11 +4,11 @@
 void Set::createRecommendationsImage (int numName)
 {
     gameImageRecommendation.clear();
-    ImageTextureInRecommendation.clear();
+    imageTextureInRecommendation.clear();
 
     for (int i = 0; i < linkImages[numName].size(); ++i)
     {
-        ImageTextureInRecommendation.emplace_back(imageTexture(linkImages, numName, i));
+        imageTextureInRecommendation.emplace_back(imageTexture(linkImages, numName, i));
     }
 
     for (int i = 0; i < linkImages[numName].size(); ++i)
@@ -17,35 +17,35 @@ void Set::createRecommendationsImage (int numName)
         {
             case 0:
                 gameImageRecommendation.emplace_back(image(
-                        ImageTextureInRecommendation[i],
+                        imageTextureInRecommendation[i],
                         sf::Color(255, 255, 255, 255),
                         sf::Vector2f(750.0f, 450.0f),
                         sf::Vector2f(200.0f, 400.0f)));
                 break;
             case 1:
                 gameImageRecommendation.emplace_back(image(
-                        ImageTextureInRecommendation[i],
+                        imageTextureInRecommendation[i],
                         sf::Color(255, 255, 255, 120),
                         sf::Vector2f(210.0f, 100.0f),
                         sf::Vector2f(960.0f, 500.0f)));
                 break;
             case 2:
                 gameImageRecommendation.emplace_back(image(
-                        ImageTextureInRecommendation[i],
+                        imageTextureInRecommendation[i],
                         sf::Color(255, 255, 255, 120),
                         sf::Vector2f(210.0f, 100.0f),
                         sf::Vector2f(1180.0f, 500.0f)));
                 break;
             case 3:
                 gameImageRecommendation.emplace_back(image(
-                        ImageTextureInRecommendation[i],
+                        imageTextureInRecommendation[i],
                         sf::Color(255, 255, 255, 120),
                         sf::Vector2f(210.0f, 100.0f),
                         sf::Vector2f(960.0f, 610.0f)));
                 break;
             case 4:
                 gameImageRecommendation.emplace_back(image(
-                        ImageTextureInRecommendation[i],
+                        imageTextureInRecommendation[i],
                         sf::Color(255, 255, 255, 120),
                         sf::Vector2f(210.0f, 100.0f),
                         sf::Vector2f(1180.0f, 610.0f)));
@@ -124,7 +124,7 @@ std::vector<sf::RectangleShape> Set::createGameListImage()
 
     for (int i = 0; i < configGames.getlistGames().size(); ++i)
     {
-        ImageTextureInGames.emplace_back(imageTexture(linkImages, i, 0));
+        imageTextureInGames.emplace_back(imageTexture(linkImages, i, 0));
     }
 
     float posY = 100.0f;
@@ -132,7 +132,7 @@ std::vector<sf::RectangleShape> Set::createGameListImage()
     for (int i = 0; i < configGames.getlistGames().size(); ++i)
     {
         gameImageList.emplace_back(image(
-                ImageTextureInGames[i],
+                imageTextureInGames[i],
                 sf::Color(255, 255, 255, 255),
                 sf::Vector2f(750.0f, 450.0f),
                 sf::Vector2f(200.0f, posY)));
@@ -142,6 +142,68 @@ std::vector<sf::RectangleShape> Set::createGameListImage()
 
     return gameImageList;
 }
+
+std::vector<sf::Text> Set::createListName()
+{
+    std::vector<sf::Text> listName;
+    float posY = 130.0f;
+
+    for (int i = 0; i < configGames.getlistGames().size(); ++i)
+    {
+        listName.emplace_back(text(
+                fontCalibriBold,
+                listRecommendationsGames[i],
+                35,
+                sf::Color(208,208,208),
+                sf::Vector2f (1000.0f, posY)));
+
+        posY += 500.0f;
+    }
+
+    return listName;
+}
+
+
+std::vector<std::vector<sf::RectangleShape>> Set::createStarsEstimation()
+{
+    std::vector<sf::RectangleShape> starsEstimation;
+    std::vector<std::vector<sf::RectangleShape>> listStarsEstimation;
+
+    float posX = 1050.0f;
+    float posY = 470.0f;
+
+    for (int k = 0; k < configGames.getlistGames().size(); ++k)
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+            if(configGames.getEstimation(configGames.getlistGames()[k]) > i)
+            {
+                starsEstimation.emplace_back(image(
+                        starsTexture[1],
+                        sf::Color(255, 255, 255, 255),
+                        sf::Vector2f(50.0f, 50.0f),
+                        sf::Vector2f(posX, posY)));
+            } else
+            {
+                starsEstimation.emplace_back(image(
+                        starsTexture[0],
+                        sf::Color(255, 255, 255, 255),
+                        sf::Vector2f(50.0f, 50.0f),
+                        sf::Vector2f(posX, posY)));
+            }
+
+            posX += 50.0f;
+        }
+
+        listStarsEstimation.emplace_back(starsEstimation);
+        starsEstimation.clear();
+        posY += 500.0f;
+        posX = 1050.0f;
+    }
+
+    return listStarsEstimation;
+}
+
 
 void Set::gameWindowCreate (sf::Event event)
 {
@@ -153,6 +215,8 @@ void Set::gameWindowCreate (sf::Event event)
 
     auto gameListRectangles = gameListGenerator();
     auto gameListImages = createGameListImage();
+    auto gameListNames = createListName();
+    auto starsEstimation = createStarsEstimation();
 
     while (gamesWindow.isOpen())
     {
@@ -191,6 +255,18 @@ void Set::gameWindowCreate (sf::Event event)
             gamesWindow.draw(gameListImage);
         }
 
+        for (auto gameListName : gameListNames)
+        {
+            gamesWindow.draw(gameListName);
+        }
+
+        for (int i = 0; i < configGames.getlistGames().size(); ++i)
+        {
+            for (int j = 0; j < 5; ++j)
+            {
+                gamesWindow.draw(starsEstimation[i][j]);
+            }
+        }
 
         gamesWindow.display();
     }
@@ -280,13 +356,13 @@ void Set::mainWindowCreate()
             }
         }
 
-        ImageTextureInRecommendation[0] = imageTexture(linkImages, numRecommendationsGame, 0);
+        imageTextureInRecommendation[0] = imageTexture(linkImages, numRecommendationsGame, 0);
         for (int i = 1; i < gameImageRecommendation.size(); ++i)
         {
             if (gameImageRecommendation[i].getGlobalBounds().contains(mousePosition.x, mousePosition.y))
             {
                 gameImageRecommendation[i].setFillColor(sf::Color(255, 255, 255, 255));
-                ImageTextureInRecommendation[0] = imageTexture(linkImages, numRecommendationsGame, i);
+                imageTextureInRecommendation[0] = imageTexture(linkImages, numRecommendationsGame, i);
             }
             else if (gameImageRecommendation[i].getFillColor() != sf::Color(255, 255, 255, 120))
             {

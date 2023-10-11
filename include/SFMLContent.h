@@ -20,16 +20,21 @@ private:
     std::vector<std::vector<std::string>> linkImages = configGames.getRecommendations(listRecommendationsGames);
     std::vector<std::string> linkArrow = {".\\images\\Left.png", ".\\images\\Right.png"};
     std::string linkRecommendationButton = ".\\images\\recBut.png";
+    std::vector<std::string> linkStarsEstimation = {".\\images\\StarVoid.png", ".\\images\\StarFull.png"};
 
     //// Текстуры
 
-    std::vector<sf::Texture> ImageTextureInGames;
-    std::vector<sf::Texture> ImageTextureInRecommendation;
+    std::vector<sf::Texture> imageTextureInGames;
+    std::vector<sf::Texture> imageTextureInRecommendation;
+
+    std::vector<sf::Texture> starsTexture = {imageTexture (linkStarsEstimation, 0), imageTexture (linkStarsEstimation, 1)};
 
     sf::Texture bannerTexture = imageTexture (linkBanner);
 
     sf::Texture textureLiftArrow = imageTexture (linkArrow, 0);
     sf::Texture textureRightArrow = imageTexture (linkArrow, 1);
+
+
 
     sf::Texture textureRecommendationButton = imageTexture (linkRecommendationButton);
 
@@ -139,6 +144,9 @@ public:
     void createRecommendationsName (int numName);
     std::vector<sf::RectangleShape> createRecommendationsButton();
     std::vector<sf::RectangleShape> createGameListImage();
+    std::vector<sf::Text> createListName();
+
+    std::vector<std::vector<sf::RectangleShape>> createStarsEstimation();
 
     //// Окна
     void gameWindowCreate(sf::Event event);
