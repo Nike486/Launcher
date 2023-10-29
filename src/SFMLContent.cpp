@@ -124,7 +124,7 @@ std::vector<sf::RectangleShape> Set::createGameListImage()
 
     for (int i = 0; i < configGames.getlistGames().size(); ++i)
     {
-        imageTextureInGames.emplace_back(imageTexture(linkImages, i, 0));
+        imageTextureInGames.emplace_back(imageTexture(linkMainImgAllGames, i));
     }
 
     float posY = 100.0f;
@@ -142,27 +142,6 @@ std::vector<sf::RectangleShape> Set::createGameListImage()
 
     return gameImageList;
 }
-
-std::vector<sf::Text> Set::createListName()
-{
-    std::vector<sf::Text> listName;
-    float posY = 130.0f;
-
-    for (int i = 0; i < configGames.getlistGames().size(); ++i)
-    {
-        listName.emplace_back(text(
-                fontCalibriBold,
-                listRecommendationsGames[i],
-                35,
-                sf::Color(208,208,208),
-                sf::Vector2f (1000.0f, posY)));
-
-        posY += 500.0f;
-    }
-
-    return listName;
-}
-
 
 std::vector<std::vector<sf::RectangleShape>> Set::createStarsEstimation()
 {
@@ -204,6 +183,85 @@ std::vector<std::vector<sf::RectangleShape>> Set::createStarsEstimation()
     return listStarsEstimation;
 }
 
+std::vector<sf::Text> Set::createListDescription()
+{
+    std::vector<sf::Text> listDescription;
+    float posY = 200.0f;
+
+    for (int i = 0; i < configGames.getlistGames().size(); ++i)
+    {
+        listDescription.emplace_back(text(
+                fontCalibriRegular,
+                configGames.getDescription(configGames.getlistGames()[i]),
+                15,
+                sf::Color(208,208,208),
+                sf::Vector2f (1000.0f, posY)));
+
+        posY += 500.0f;
+    }
+
+    return listDescription;
+}
+std::vector<sf::Text> Set::createListPrice()
+{
+    std::vector<sf::Text> listPrice;
+    float posY = 440.0f;
+
+    for (int i = 0; i < configGames.getlistGames().size(); ++i)
+    {
+        listPrice.emplace_back(text(
+                fontCalibriBold,
+                listPriceWithRub[i],
+                25,
+                sf::Color(208,208,208),
+                sf::Vector2f (1120.0f, posY)));
+
+        posY += 500.0f;
+    }
+
+    return listPrice;
+}
+std::vector<sf::Text> Set::createListName()
+{
+    std::vector<sf::Text> listName;
+    float posY = 130.0f;
+
+    for (int i = 0; i < configGames.getlistGames().size(); ++i)
+    {
+        listName.emplace_back(text(
+                fontCalibriBold,
+                configGames.getlistGames()[i],
+                35,
+                sf::Color(208,208,208),
+                sf::Vector2f (1000.0f, posY)));
+
+        posY += 500.0f;
+    }
+
+    return listName;
+}
+
+
+std::vector<sf::Text> Set::createListDeveloper()
+{
+    std::vector<sf::Text> listDvlpr;
+    float posY = 380.0f;
+
+    for (int i = 0; i < configGames.getlistGames().size(); ++i)
+    {
+        listDvlpr.emplace_back(text(
+                fontCalibriRegular,
+                configGames.getListDeveloper()[i],
+                15,
+                sf::Color(208,208,208),
+                sf::Vector2f (1000.0f, posY)));
+
+        posY += 500.0f;
+    }
+
+    return listDvlpr;
+}
+
 
 void Set::gameWindowCreate (sf::Event event)
 {
@@ -217,6 +275,9 @@ void Set::gameWindowCreate (sf::Event event)
     auto gameListImages = createGameListImage();
     auto gameListNames = createListName();
     auto starsEstimation = createStarsEstimation();
+    auto gameDescription = createListDescription();
+    auto gamePrice = createListPrice();
+    auto gameDeveloper = createListDeveloper();
 
     while (gamesWindow.isOpen())
     {
@@ -266,6 +327,21 @@ void Set::gameWindowCreate (sf::Event event)
             {
                 gamesWindow.draw(starsEstimation[i][j]);
             }
+        }
+
+        for (auto gameDesc : gameDescription)
+        {
+            gamesWindow.draw(gameDesc);
+        }
+
+        for (auto gamePrc : gamePrice)
+        {
+            gamesWindow.draw(gamePrc);
+        }
+
+        for (auto gameDvlpr : gameDeveloper)
+        {
+            gamesWindow.draw(gameDvlpr);
         }
 
         gamesWindow.display();

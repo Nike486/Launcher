@@ -1,6 +1,6 @@
 {
-  "Description": "",
-  "Developer": [],
+  "Description": "Description Witcher",
+  "Developer": ["CD Projekt RED", "Saber Interactive"],
   "Estimation": 4,
   "Genre": [],
   "Images": [".\\images\\Witcher.jpeg"],

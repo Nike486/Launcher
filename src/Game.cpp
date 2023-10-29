@@ -96,6 +96,7 @@ std::vector<std::string> ConfigGames::getlistGames()
             fileJsonOpen.close();
         }
     }
+
     return listGames;
 }
 
@@ -113,6 +114,7 @@ std::vector<std::string> ConfigGames::getListGameJson()
         }
         else break;
     }
+
     return listGameJson;
 }
 
@@ -172,5 +174,51 @@ std::vector<std::vector<std::string>> ConfigGames::getRecommendations(std::vecto
     {
         listRecommendations.push_back(getImages(_nameGame[i]));
     }
+
     return listRecommendations;
+}
+
+std::vector<std::string> ConfigGames::getMainImagesAllGames()
+{
+    std::vector<std::string> listImg;
+
+    for (int i = 0; i < listGames.size(); ++i)
+    {
+        listImg.emplace_back(getImages(listGames[i])[0]);
+    }
+
+    return listImg;
+}
+
+std::vector<std::string> ConfigGames::getListPriceRub()
+{
+    std::vector<std::string> listPriceRub;
+
+    for (int i = 0; i < listGames.size(); ++i)
+    {
+        listPriceRub.emplace_back( std::to_string(getPrice(listGames[i])) + " RUB.");
+    }
+
+    return listPriceRub;
+}
+
+std::vector<std::string> ConfigGames::getListDeveloper()
+{
+    std::vector<std::string> listDeveloper;
+
+    for (int i = 0; i < listGames.size(); ++i)
+    {
+        if (getDeveloper(listGames[i]).size() > 1)
+        {
+            std::string strDev;
+            for (auto dev : getDeveloper(listGames[i]))
+            {
+                strDev += dev + "\n";
+            }
+            listDeveloper.emplace_back(strDev);
+        }
+        else listDeveloper.emplace_back(getDeveloper(listGames[i])[0]);
+    }
+
+    return listDeveloper;
 }

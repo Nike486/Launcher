@@ -1,6 +1,6 @@
 {
-  "Description": "",
-  "Developer": [],
+  "Description": "Description GTA",
+  "Developer": ["Rockstar North", "Rockstar Toronto"],
   "Estimation": 1,
   "Genre": [],
   "Images": [".\\images\\GTA 1.jpg", ".\\images\\GTA 2.jpg", ".\\images\\GTA 3.jpg", ".\\images\\GTA 4.jpg", ".\\images\\GTA 5.jpg"],

@@ -78,7 +78,6 @@ public:
     /// Функция получает информацию об игре по названию
     void parsingJSON(std::string _nameGame);
 
-
     /// Функция возвращает ОПИСАНИЕ по названию
     std::string getDescription(std::string _nameGame);
 
@@ -105,5 +104,14 @@ public:
 
     /// Функция возвращает пути до картинок для РЕКОМЕНДАЦИЙ по названиям игр (от 3х)
     std::vector<std::vector<std::string>> getRecommendations(std::vector<std::string> _nameGame);
+
+    /// Функция возвращает ПУТИ ДО ГЛАВНОЙ КАРТИНКИ ВСЕХ ИГР
+    std::vector <std::string> getMainImagesAllGames();
+
+    /// Функция возвращает ЦЕНУ ВСЕХ ИГР с "руб."
+    std::vector <std::string> getListPriceRub();
+
+    /// Функция возвращает СПИСОК РАЗРАБОТЧИХОВ ВСЕХ ИГР
+    std::vector <std::string> getListDeveloper();
 
 };

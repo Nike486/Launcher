@@ -4,10 +4,11 @@
 #include "SFMLClass.h"
 #include "Game.h"
 
-
 class Set : protected SFML
 {
 private:
+
+
 
     ConfigGames configGames;
 
@@ -18,6 +19,10 @@ private:
     std::string linkBanner = ".\\images\\COD.jpg";
 
     std::vector<std::vector<std::string>> linkImages = configGames.getRecommendations(listRecommendationsGames);
+    std::vector<std::string> linkMainImgAllGames = configGames.getMainImagesAllGames();
+    std::vector<std::string> listPriceWithRub = configGames.getListPriceRub();
+    std::vector<std::string> listDeveloper = configGames.getListDeveloper();
+
     std::vector<std::string> linkArrow = {".\\images\\Left.png", ".\\images\\Right.png"};
     std::string linkRecommendationButton = ".\\images\\recBut.png";
     std::vector<std::string> linkStarsEstimation = {".\\images\\StarVoid.png", ".\\images\\StarFull.png"};
@@ -145,6 +150,9 @@ public:
     std::vector<sf::RectangleShape> createRecommendationsButton();
     std::vector<sf::RectangleShape> createGameListImage();
     std::vector<sf::Text> createListName();
+    std::vector<sf::Text> createListDescription();
+    std::vector<sf::Text> createListPrice();
+    std::vector<sf::Text> createListDeveloper();
 
     std::vector<std::vector<sf::RectangleShape>> createStarsEstimation();
 

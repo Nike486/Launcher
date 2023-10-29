@@ -2,13 +2,19 @@
 #include "Game.h"
 #include "SFMLContent.h"
 
-
 int main() {
-
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    Set set({"GTA", "NFS", "RGR2", "Witcher", "Elden Ring"});
+    Set set({
+               "GTA"
+             , "NFS"
+             , "RGR2"
+             , "Witcher"
+           //  , "Elden Ring"
+    });
+
+
 
     set.mainWindowCreate();
 
